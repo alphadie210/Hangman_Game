@@ -92,7 +92,9 @@ def start_game():
 
     display_word = []
     for i, ch in enumerate(word):       #jb ek list/string p loop chlaate ho, toh index + value dono ek saath deta h
-        if i in reveal_indices:      #plural of index
+        if ch == " ":     #agr space h toh usko direct space hi rkho
+            display_word.append(" ")
+        elif i in reveal_indices:      #plural of index
             display_word.append(ch)
         else:
             display_word.append("__")
