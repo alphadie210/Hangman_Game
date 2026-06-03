@@ -120,7 +120,9 @@ def get_countries():     # list scrape krne k liye
     for row in rows[1:]:   # first row header hota h, skip kro
         cols = row.find_all("td")
         if len(cols) >= 2:  # ensure row m do column ho
-            countries.append(cols[0].text.strip())
+            country = cols[0].text.strip()
+            if country.isalpha():    #ensure country name m sirf letters ho, spaces ya special char na ho
+                countries.append(country)
     return countries
 
 
@@ -133,7 +135,9 @@ def get_capitals():       # list scrape krne k liye
     for row in rows[1:]:
         cols = row.find_all("td")
         if len(cols) >= 2:
-            capitals.append(cols[1].text.strip())    # dusra column = capital
+            capital = cols[1].text.strip()
+            if capital.isalpha():
+                capitals.append(capital)
     return capitals
 
 
@@ -146,7 +150,9 @@ def get_freedom_fighters():       # list scrape krne k liye
     for row in rows[1:]:
          cols = row.find_all("td")
          if len(cols) >= 2:
-             freedom_fighters.append(cols[0].text.strip()) 
+            fighter = cols[0].text.strip()
+            if fighter.isalpha():
+                freedom_fighters.append(fighter)
     return freedom_fighters
 
 
@@ -215,7 +221,10 @@ def restart_game():
     canvas.delete("all")
 
     if label_word:
-        label_word.config(text = "")   # label clear
+        label_word.destroy()   # label clear
+        label_word = None
+
+    window.unbind("<Key>")    #key bind remove kr diya, taki restart hone k baad user key press kr k game start ho ske
 
 # game restart hone p buttons vps show krega
     rb_countries.place(relx=0.5, rely=0.5, anchor="center")
